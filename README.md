@@ -1,16 +1,29 @@
 # Epson Connect
+The Epson Connect Library offers a comprehensive interface to the Epson Connect API. With this library, users can seamlessly control Epson printers and scanners through the Epson cloud service.
 
-This library provides a wrapper for the Epson Connect API.
 
 NB: This library is very much still in beta.
 
-## Install
+## Getting Started
 
-```
+## Installation of the library
+
+```bash 
 pip install epson-connect
 ```
 
+
+## Prerequisites
+Ensure that you have the required credentials:
+
+- Printer Email
+- Client ID
+- Client Secret
+These can be obtained from the Epson Connect API registration portal. 
+
 ## Usage
+You can initialize the client using direct parameters:
+
 
 ```python
 import epson_connect
@@ -20,18 +33,31 @@ ec = epson_connect.Client(
     client_id='...',
     client_secret='...',
 )
+```
 
-# Or with these enviornment variables defined...
+Alternatively, you can set up environment variables and initialize the client without parameters:
+
+
+```
 # export EPSON_CONNECT_API_PRINTER_EMAIL=<an email address for the device>
 # export EPSON_CONNECT_API_CLIENT_ID=<client id>
 # export EPSON_CONNECT_API_CLIENT_SECRET=<client secret>
-# ec = epson_connect.Client()
+```
 
-# Print a PDF.
+```python
+ec = epson_connect.Client()
+```
+
+## Printing
+```
 job_id = ec.printer.print('./path/to/file.pdf')
+```
 
-# List scan destinations.
-ec.scanner.list()
+## Scanning
+
+```python
+destinations = ec.scanner.list()
+print(destinations)
 ```
 
 ### Tests
@@ -41,6 +67,8 @@ tox
 ```
 
 ### Deployment
+When you're ready to build and publish your library:
+
 
 ```
 poetry build
