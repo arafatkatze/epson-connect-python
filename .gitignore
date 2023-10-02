@@ -40,3 +40,6 @@ coverage.xml
 dist/
 
 .env
+
+# Sphinx Documentation Build files
+docs/_build
