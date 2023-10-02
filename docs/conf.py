@@ -5,7 +5,7 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
-
+import sys, os
 project = 'epson-connect'
 copyright = '2023, Paul Logston'
 author = 'Paul Logston'
@@ -14,10 +14,13 @@ release = '0.1.0'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["myst_parser"]
+extensions = ['sphinx.ext.autodoc', "sphinx_autodoc_typehints", 'sphinx.ext.viewcode', 'sphinx.ext.autosummary']
+autosummary_generate = True # Turn on sphinx.ext.autosummary
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
+sys.path.insert(0, os.path.abspath('../../'))
 
 
 
