@@ -62,6 +62,15 @@ VALID_TWO_SIDE = {
 
 
 def merge_with_default_settings(settings=None):
+    """
+    Merge the given settings with default printer settings.
+
+    This function will set defaults for any missing settings from the input. It also 
+    generates a random job name if one is not provided.
+
+    :param settings: Dictionary containing printer settings.
+    :return: Dictionary containing the merged settings.
+    """
     settings = settings or {}
 
     job_name = settings.get('job_name') or ''
@@ -99,6 +108,12 @@ def merge_with_default_settings(settings=None):
 def validate_settings(settings: dict):  # noqa: C901
     """
     Validate all parts of a settings object.
+
+    This function checks if the provided settings are valid and raises an error if they are not.
+    Each setting is validated against pre-defined valid values or constraints.
+
+    :param settings: Dictionary containing printer settings.
+    :raises PrintSettingError: If any of the settings are invalid.
     """
     extra_keys = set(settings.keys()) - {'job_name', 'print_mode', 'print_setting'}
     if extra_keys:
@@ -175,4 +190,9 @@ def validate_settings(settings: dict):  # noqa: C901
 
 
 class PrintSettingError(ValueError):
+    """
+    Error raised for printer setting-specific exceptions.
+
+    This includes cases like invalid values, missing required settings, or mismatched configurations.
+    """
     pass

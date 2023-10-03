@@ -43,3 +43,6 @@ dist/
 
 # Sphinx Documentation Build files
 docs/_build
+
+# testing
+.tox

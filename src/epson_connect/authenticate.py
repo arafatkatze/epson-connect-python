@@ -8,6 +8,11 @@ logger = logging.getLogger(__name__)
 
 
 class AuthCtx:
+    """
+    Authentication context for the printer API.
+
+    This class manages authentication to the API by obtaining and refreshing access tokens as required.
+    """
     def __init__(
             self,
             base_url: str,
@@ -15,6 +20,14 @@ class AuthCtx:
             client_id: str,
             client_secret: str,
     ) -> None:
+        """
+        Initialize the authentication context.
+
+        :param base_url: The base URL for the API.
+        :param printer_email: Email of the printer for authentication.
+        :param client_id: OAuth client ID.
+        :param client_secret: OAuth client secret.
+        """
         self._base_url = base_url
         self._printer_email = printer_email
         self._client_id = client_id
@@ -28,6 +41,12 @@ class AuthCtx:
         self._auth()
 
     def _auth(self):
+        """
+        Authenticate or re-authenticate with the API.
+
+        If the token has expired or not obtained yet, this function will get a new one.
+        If we already have an access token, this function will use the refresh token to get a new one.
+        """
         method = 'POST'
         path = '/api/1/printing/oauth2/auth/token?subject=printer'
 
@@ -70,16 +89,27 @@ class AuthCtx:
 
     def _deauthenticate(self):
         """
-        Cancel authentication.
+        De-authenticate from the API.
+
+        This method sends a DELETE request to de-authenticate the current session.
         """
         method = 'DELETE'
         path = f'/api/1/printing/printers/{self._subject_id}'
         self.send(method, path)
 
     def send(self, method, path, data=None, json=None, headers=None, auth=None) -> dict:
-        # auth is only set when we are authenticating with Client ID and Client Secret.
-        # In this scenario, we do not want to call self._auth again as that
-        # would cause a recursion exception.
+        """
+        Send a request to the API.
+
+        :param method: HTTP method (e.g., GET, POST).
+        :param path: API path.
+        :param data: Data payload for the request.
+        :param json: JSON payload for the request.
+        :param headers: HTTP headers.
+        :param auth: Authentication object.
+
+        :return: Dictionary containing the response.
+        """
         if not auth:
             self._auth()
 
@@ -112,6 +142,13 @@ class AuthCtx:
 
     @property
     def default_headers(self):
+        """
+        Default headers for the API requests.
+
+        This includes the current access token for authentication.
+
+        :return: Dictionary of default headers.
+        """
         return {
             'Authorization': f'Bearer {self._access_token}',
             'Content-Type': 'application/json',
@@ -119,16 +156,23 @@ class AuthCtx:
 
     @property
     def device_id(self):
+        """
+        Get the device (printer) ID from the current session.
+
+        :return: Device ID (subject_id from the authentication response).
+        """
         return self._subject_id
 
 
 class AuthenticationError(RuntimeError):
     """
-    Error for authentication specific exceptions.
+    Error raised when there are authentication specific exceptions.
+    This can include failed authentication attempts, invalid tokens, etc.
     """
 
 
 class ApiError(RuntimeError):
     """
-    General base error for any API errors after authentication has succeeded.
+    General error raised for any API errors after authentication has succeeded.
+    This can include bad requests, server errors, etc.
     """

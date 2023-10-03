@@ -6,6 +6,12 @@ from .printer_settings import merge_with_default_settings, validate_settings
 
 
 class Printer:
+    """
+    Printer class for managing print jobs in the Epson Connect API.
+
+    This class provides methods to handle printing, including file uploads, print job creation, 
+    fetching printer capabilities, and more.
+    """
     VALID_EXTENSIONS = {
         'doc',
         'docx',
@@ -28,15 +34,28 @@ class Printer:
     }
 
     def __init__(self, auth_ctx: AuthCtx) -> None:
+        """
+        Initialize the Printer object.
+
+        :param auth_ctx: The authentication context which provides authenticated sessions to the API.
+        """
         self._auth_ctx = auth_ctx
 
     @property
     def device_id(self):
+        """
+        Retrieve the device ID associated with the current session.
+
+        :return: Device ID.
+        """
         return self._auth_ctx.device_id
 
     def capabilities(self, mode):
         """
-        Get device print capabilities.
+        Fetch the device print capabilities based on the given mode.
+
+        :param mode: The mode for which to fetch capabilities.
+        :return: Dictionary containing device capabilities.
         """
         method = 'GET'
         path = f'/api/1/printing/printers/{self.device_id}/capability/{mode}'
@@ -146,7 +165,11 @@ class Printer:
 
     def notification(self, callback_uri, enabled=True):
         """
-        Set whether or not to notify of the print job status change.
+        Configure notifications for the print job status change.
+
+        :param callback_uri: URI to which notifications should be sent.
+        :param enabled: Whether or not to enable notifications. Defaults to True.
+        :return: Response from the API.
         """
         method = 'POST'
         path = f'/api/1/printing/printers/{self.device_id}/settings/notification'
@@ -160,4 +183,9 @@ class Printer:
 
 
 class PrinterError(ValueError):
+    """
+    Error raised for printer-specific exceptions.
+
+    This includes cases like invalid file extensions, unsupported print modes, and other printer-related issues.
+    """
     pass
