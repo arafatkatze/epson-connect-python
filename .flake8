@@ -1,5 +1,5 @@
 [flake8]
 exclude = __pycache__,.eggs/,.tox/
-max-line-length = 100
+max-line-length = 140
 max-complexity = 10
 ignore = W391
