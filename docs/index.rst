@@ -16,7 +16,6 @@ Table of Contents
    :caption: Contents:
 
    source/epson_connect
-   source/modules
 
 Indices and tables
 ------------------
