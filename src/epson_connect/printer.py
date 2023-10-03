@@ -9,7 +9,7 @@ class Printer:
     """
     Printer class for managing print jobs in the Epson Connect API.
 
-    This class provides methods to handle printing, including file uploads, print job creation, 
+    This class provides methods to handle printing, including file uploads, print job creation,
     fetching printer capabilities, and more.
     """
     VALID_EXTENSIONS = {

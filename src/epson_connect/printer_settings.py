@@ -65,7 +65,7 @@ def merge_with_default_settings(settings=None):
     """
     Merge the given settings with default printer settings.
 
-    This function will set defaults for any missing settings from the input. It also 
+    This function will set defaults for any missing settings from the input. It also
     generates a random job name if one is not provided.
 
     :param settings: Dictionary containing printer settings.

@@ -8,7 +8,7 @@ from .scanner import Scanner
 class Client:
     """
     Client for the Epson Connect API.
-    
+
     This class provides a higher-level interface to interact with the Epson Connect services,
     including authentication, printer management, and scanning operations.
     """
