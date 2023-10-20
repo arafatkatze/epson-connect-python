@@ -55,6 +55,23 @@ ec = epson_connect.Client()
 job_id = ec.printer.print('./path/to/file.pdf')
 ```
 
+For printing the following file extensions are supported 
+```
+doc
+docx
+xls
+xlsx
+ppt
+pptx
+pdf
+jpeg
+jpg
+bmp
+gif
+png
+tiff
+```
+
 ## Scanning
 
 ```python
