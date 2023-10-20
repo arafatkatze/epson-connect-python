@@ -10,7 +10,7 @@ The Epson Connect Library offers a comprehensive interface to the Epson Connect 
 ## Installation of the library
 
 ```bash 
-pip install epson-connect
+pip3 install epson-connect
 ```
 
 
@@ -20,7 +20,8 @@ Ensure that you have the required credentials:
 - Printer Email
 - Client ID
 - Client Secret
-These can be obtained from the Epson Connect API registration portal. 
+
+These can be obtained from the Epson Connect API registration portal. For more detailed steps you can refer to the medium blogs from Epson.
 
 ## Usage
 You can initialize the client using direct parameters:
@@ -66,6 +67,7 @@ print(destinations)
 ```
 tox
 ```
+This repository uses Github Workflows to run a CI CD pipeline it's defined in `.github/workflows/cicd.yml`
 
 ### Deployment
 When you're ready to build and publish your library:
